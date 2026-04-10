@@ -1,0 +1,1 @@
+<template>mor-omladinska</template>

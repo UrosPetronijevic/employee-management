@@ -2,74 +2,56 @@
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+# PROJECT STRUCTURE/ARCHITECTURE:
 
-Make sure to install dependencies:
+employee-management/
+├── .nuxt/
+├── app/
+│ ├── assets/
+│ │ └── main.css
+│ ├── layouts/
+│ │ ├── auth.vue
+│ │ └── main.vue
+│ ├── pages/
+│ │ ├── annual-leave/
+│ │ │ └── index.vue
+│ │ ├── auth/
+│ │ │ ├── forgot-password.vue
+│ │ │ ├── login.vue
+│ │ │ └── register.vue
+│ │ ├── charts/
+│ │ │ └── index.vue
+│ │ ├── dashboard/
+│ │ │ └── index.vue
+│ │ ├── help/
+│ │ │ └── index.vue
+│ │ ├── keyholders/
+│ │ │ └── index.vue
+│ │ ├── profiles/
+│ │ │ └── index.vue
+│ │ ├── tables/
+│ │ │ ├── additional-burden/
+│ │ │ │ └── index.vue
+│ │ │ ├── mor/
+│ │ │ │ ├── index.vue
+│ │ │ │ ├── mor-cooperative.vue
+│ │ │ │ └── mor-pp.vue
+│ │ │ ├── overtime/
+│ │ │ │ └── index.vue
+│ │ │ ├── readiness/
+│ │ │ │ └── index.vue
+│ │ │ ├── transport/
+│ │ │ │ └── index.vue
+│ │ │ └── index.vue
+│ │ └── index.vue
+│ └── app.vue
+├── node_modules/
+├── public/
+├── .gitignore
+├── nuxt.config.ts
+├── package.json
+├── package-lock.json
+├── README.md
+└── tsconfig.json
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+# //////////////////////////////////////////////////////////////

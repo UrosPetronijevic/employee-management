@@ -1,0 +1,10 @@
+[
+  {
+    "id": "usr-001",
+    "username": "marko.petrovic",
+    "email": "marko@company.rs",
+    "password": "Test1234",
+    "role": "admin",
+    "createdAt": "2025-01-01"
+  }
+]

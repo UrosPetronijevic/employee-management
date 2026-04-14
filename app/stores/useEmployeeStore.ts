@@ -1,5 +1,4 @@
-// stores/useEmployeeStore.ts
-import type { Employee } from "~/types/employee";
+import type { Employee } from "@/types/employee";
 
 export const useEmployeeStore = defineStore("employee", () => {
   // State

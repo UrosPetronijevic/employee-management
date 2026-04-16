@@ -1,4 +1,3 @@
-<!-- app/layouts/main.vue -->
 <template>
   <div class="main-wrapper">
     <!-- Background glow orb -->

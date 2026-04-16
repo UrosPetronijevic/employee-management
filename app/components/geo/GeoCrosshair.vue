@@ -1,0 +1,56 @@
+<template>
+  <svg
+    class="crosshair-svg"
+    viewBox="0 0 60 60"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="30"
+      cy="30"
+      r="18"
+      stroke="rgba(196,135,58,0.4)"
+      stroke-width="1"
+    />
+    <circle
+      cx="30"
+      cy="30"
+      r="8"
+      stroke="rgba(196,135,58,0.3)"
+      stroke-width="1"
+    />
+    <line
+      x1="30"
+      y1="4"
+      x2="30"
+      y2="18"
+      stroke="rgba(196,135,58,0.4)"
+      stroke-width="1"
+    />
+    <line
+      x1="30"
+      y1="42"
+      x2="30"
+      y2="56"
+      stroke="rgba(196,135,58,0.4)"
+      stroke-width="1"
+    />
+    <line
+      x1="4"
+      y1="30"
+      x2="18"
+      y2="30"
+      stroke="rgba(196,135,58,0.4)"
+      stroke-width="1"
+    />
+    <line
+      x1="42"
+      y1="30"
+      x2="56"
+      y2="30"
+      stroke="rgba(196,135,58,0.4)"
+      stroke-width="1"
+    />
+    <circle cx="30" cy="30" r="2.5" fill="rgba(196,135,58,0.6)" />
+  </svg>
+</template>

@@ -33,7 +33,9 @@ export const useAuthStore = defineStore("auth", () => {
         { method: "POST", body: { email, password } },
       );
       user.value = res.data;
-      localStorage.setItem("auth_user", JSON.stringify(res.data));
+      if (import.meta.client) {
+        localStorage.setItem("auth_user", JSON.stringify(res.data));
+      }
       return true;
     } catch (e: any) {
       error.value = e.data?.message || "Greška pri prijavi";
@@ -68,7 +70,9 @@ export const useAuthStore = defineStore("auth", () => {
         },
       );
       user.value = res.data;
-      localStorage.setItem("auth_user", JSON.stringify(res.data));
+      if (import.meta.client) {
+        localStorage.setItem("auth_user", JSON.stringify(res.data));
+      }
       return true;
     } catch (e: any) {
       error.value = e.data?.message || "Greška pri registraciji";
@@ -81,14 +85,18 @@ export const useAuthStore = defineStore("auth", () => {
   async function logout() {
     await $fetch("/api/auth/logout", { method: "POST" });
     user.value = null;
-    localStorage.removeItem("auth_user");
+    if (import.meta.client) {
+      localStorage.removeItem("auth_user");
+    }
     navigateTo("/auth/login");
   }
 
   function restoreSession() {
-    const stored = localStorage.getItem("auth_user");
-    if (stored) {
-      user.value = JSON.parse(stored);
+    if (import.meta.client) {
+      const stored = localStorage.getItem("auth_user");
+      if (stored) {
+        user.value = JSON.parse(stored);
+      }
     }
   }
 

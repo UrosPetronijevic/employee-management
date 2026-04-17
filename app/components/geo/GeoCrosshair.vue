@@ -1,56 +1,98 @@
 <template>
   <svg
     class="crosshair-svg"
-    viewBox="0 0 60 60"
+    viewBox="0 0 80 80"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <circle
-      cx="30"
-      cy="30"
-      r="18"
-      stroke="rgba(196,135,58,0.4)"
-      stroke-width="1"
+      cx="60"
+      cy="20"
+      r="12"
+      stroke="#9b6230"
+      stroke-width="0.5"
+      opacity="0.3"
+    />
+    <circle
+      cx="60"
+      cy="20"
+      r="6"
+      stroke="#d4a574"
+      stroke-width="0.5"
+      opacity="0.4"
+    />
+    <circle cx="60" cy="20" r="2" fill="#9b6230" opacity="0.5" />
+    <line
+      x1="48"
+      y1="20"
+      x2="54"
+      y2="20"
+      stroke="#d4a574"
+      stroke-width="0.4"
+      opacity="0.3"
+    />
+    <line
+      x1="66"
+      y1="20"
+      x2="72"
+      y2="20"
+      stroke="#d4a574"
+      stroke-width="0.4"
+      opacity="0.3"
+    />
+    <line
+      x1="60"
+      y1="8"
+      x2="60"
+      y2="14"
+      stroke="#d4a574"
+      stroke-width="0.4"
+      opacity="0.3"
+    />
+    <line
+      x1="60"
+      y1="26"
+      x2="60"
+      y2="32"
+      stroke="#d4a574"
+      stroke-width="0.4"
+      opacity="0.3"
     />
     <circle
       cx="30"
-      cy="30"
-      r="8"
-      stroke="rgba(196,135,58,0.3)"
-      stroke-width="1"
+      cy="40"
+      r="4"
+      stroke="#9b6230"
+      stroke-width="0.4"
+      opacity="0.2"
     />
+    <circle cx="30" cy="40" r="1.5" fill="#d4a574" opacity="0.3" />
     <line
-      x1="30"
-      y1="4"
-      x2="30"
-      y2="18"
-      stroke="rgba(196,135,58,0.4)"
-      stroke-width="1"
+      x1="34"
+      y1="40"
+      x2="48"
+      y2="20"
+      stroke="#d4a574"
+      stroke-width="0.3"
+      opacity="0.15"
     />
+    <circle
+      cx="45"
+      cy="55"
+      r="3"
+      stroke="#d4a574"
+      stroke-width="0.4"
+      opacity="0.2"
+    />
+    <circle cx="45" cy="55" r="1" fill="#9b6230" opacity="0.3" />
     <line
-      x1="30"
-      y1="42"
-      x2="30"
-      y2="56"
-      stroke="rgba(196,135,58,0.4)"
-      stroke-width="1"
+      x1="34"
+      y1="40"
+      x2="42"
+      y2="55"
+      stroke="#d4a574"
+      stroke-width="0.3"
+      opacity="0.12"
     />
-    <line
-      x1="4"
-      y1="30"
-      x2="18"
-      y2="30"
-      stroke="rgba(196,135,58,0.4)"
-      stroke-width="1"
-    />
-    <line
-      x1="42"
-      y1="30"
-      x2="56"
-      y2="30"
-      stroke="rgba(196,135,58,0.4)"
-      stroke-width="1"
-    />
-    <circle cx="30" cy="30" r="2.5" fill="rgba(196,135,58,0.6)" />
   </svg>
 </template>

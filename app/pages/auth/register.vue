@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="auth-page">
     <AuthLeftPanel />
 
     <AuthFormWrapper
@@ -66,4 +66,4 @@ async function handleRegister() {
 }
 </script>
 
-<style scoped src="./login.css" />
+<style scoped src="./auth.css" />

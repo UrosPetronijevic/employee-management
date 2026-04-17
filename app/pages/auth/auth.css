@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.login-page {
+.auth-page {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -32,7 +32,7 @@
 }
 
 @media (max-width: 900px) {
-  .login-page {
+  .auth-page {
     flex-direction: column;
     height: auto;
     min-height: 100vh;

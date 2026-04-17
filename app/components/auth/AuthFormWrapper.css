@@ -1,0 +1,131 @@
+.right-panel {
+  flex: 0 0 40%;
+  min-height: 0;
+  background: var(--color-bg-deepest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Avatar icon */
+
+.email-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--color-accent-15);
+  border: 1px solid var(--color-accent-light-25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.email-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Headings */
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-align: center;
+}
+
+.form-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-accent-light-55);
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+/* Form */
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* Submit button */
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: var(--gradient-btn);
+  color: var(--color-text-btn);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
+  margin-top: 0.25rem;
+}
+
+.submit-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Bottom prompt */
+
+.register-prompt {
+  font-size: 0.85rem;
+  color: var(--color-accent-light-50);
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.register-link {
+  color: var(--color-accent-light);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.register-link:hover {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 900px) {
+  .right-panel {
+    flex: none;
+    padding: 2rem 1.25rem;
+    overflow-y: visible;
+  }
+}

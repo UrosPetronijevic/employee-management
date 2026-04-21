@@ -1,115 +1,164 @@
+<!-- components/TheNav.vue -->
 <template>
   <nav class="app-nav">
     <div class="nav-inner">
       <button class="nav-item nav-item--add" @click="emit('add')">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.2"
-          stroke-linecap="round"
-        >
-          <path d="M12 5v14M5 12h14" />
-        </svg>
+        <div class="nav-icon">
+          <IconPlus />
+        </div>
         <span>Dodaj</span>
       </button>
 
       <NuxtLink
-        v-for="item in navItems"
-        :key="item.to"
-        :to="item.to"
+        to="/dashboard"
         class="nav-item"
         active-class="nav-item--active"
       >
-        <component :is="item.icon" />
-        <span>{{ item.label }}</span>
+        <div class="nav-icon">
+          <IconHome />
+        </div>
+        <span>Početna</span>
       </NuxtLink>
+
+      <NuxtLink to="/profiles" class="nav-item" active-class="nav-item--active">
+        <IconUsers />
+        <span>Profili</span>
+      </NuxtLink>
+
+      <!-- Tables dropdown -->
+      <div
+        class="nav-item nav-item--dropdown"
+        :class="{ 'nav-item--active': isTablesActive }"
+        @mouseenter="tablesOpen = true"
+        @mouseleave="tablesOpen = false"
+      >
+        <div class="nav-icon">
+          <IconTable />
+        </div>
+        <span>Tabele</span>
+        <div class="nav-chevron" :class="{ rotated: tablesOpen }">
+          <IconChevron />
+        </div>
+
+        <Transition name="dropdown">
+          <div v-if="tablesOpen" class="dropdown">
+            <div class="dropdown-group">
+              <span class="dropdown-group__label">MOR</span>
+              <NuxtLink
+                v-for="item in morItems"
+                :key="item.to"
+                :to="item.to"
+                class="dropdown-item"
+                active-class="dropdown-item--active"
+                @click="tablesOpen = false"
+              >
+                {{ item.label }}
+              </NuxtLink>
+            </div>
+
+            <div class="dropdown-divider" />
+
+            <div class="dropdown-group">
+              <span class="dropdown-group__label">Ostale tabele</span>
+              <NuxtLink
+                v-for="item in otherTableItems"
+                :key="item.to"
+                :to="item.to"
+                class="dropdown-item"
+                active-class="dropdown-item--active"
+                @click="tablesOpen = false"
+              >
+                {{ item.label }}
+              </NuxtLink>
+            </div>
+          </div>
+        </Transition>
+      </div>
+
+      <NuxtLink
+        to="/keyholders"
+        class="nav-item"
+        active-class="nav-item--active"
+      >
+        <div class="nav-icon">
+          <IconLock />
+        </div>
+        <span>Zaključavanje</span>
+      </NuxtLink>
+
+      <NuxtLink to="/charts" class="nav-item" active-class="nav-item--active">
+        <div class="nav-icon">
+          <IconChart />
+        </div>
+        <span>Grafici</span>
+      </NuxtLink>
+
+      <NuxtLink
+        to="/annual-leave"
+        class="nav-item"
+        active-class="nav-item--active"
+      >
+        <div class="nav-icon">
+          <IconCalendar />
+        </div>
+        <span>Godišnji</span>
+      </NuxtLink>
+
+      <NuxtLink to="/help" class="nav-item" active-class="nav-item--active">
+        <div class="nav-icon">
+          <IconHelp />
+        </div>
+        <span>Pomoć</span>
+      </NuxtLink>
+
+      <!-- Logout -->
+      <button class="nav-item nav-item--logout" @click="handleLogout">
+        <div class="nav-icon">
+          <IconLogout />
+        </div>
+        <span>Odjava</span>
+      </button>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h } from "vue";
+import IconCalendar from "./icons/IconCalendar.vue";
+import IconChart from "./icons/IconChart.vue";
+import IconChevron from "./icons/IconChevron.vue";
+import IconHelp from "./icons/IconHelp.vue";
+import IconHome from "./icons/IconHome.vue";
+import IconLock from "./icons/IconLock.vue";
+import IconLogout from "./icons/IconLogout.vue";
+import IconPlus from "./icons/IconPlus.vue";
+import IconTable from "./icons/IconTable.vue";
+import IconUsers from "./icons/IconUsers.vue";
 
 const emit = defineEmits<{ add: [] }>();
+const route = useRoute();
 
-// Lightweight inline icon factory to avoid external deps
-function icon(d: string | string[], extra?: Record<string, string>) {
-  return defineComponent({
-    render() {
-      const paths = Array.isArray(d) ? d : [d];
-      return h(
-        "svg",
-        {
-          xmlns: "http://www.w3.org/2000/svg",
-          width: 15,
-          height: 15,
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          "stroke-width": "1.8",
-          "stroke-linecap": "round",
-          "stroke-linejoin": "round",
-          ...extra,
-        },
-        paths.map((p) => h("path", { d: p })),
-      );
-    },
-  });
-}
+const tablesOpen = ref(false);
 
-const navItems = [
-  {
-    label: "Početna",
-    to: "/",
-    icon: icon("M3 12L12 3l9 9M4 10v10h6v-6h4v6h6V10"),
-  },
-  {
-    label: "Profili",
-    to: "/profiles",
-    icon: icon([
-      "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
-      "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
-      "M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
-    ]),
-  },
-  {
-    label: "Tabele",
-    to: "/tables",
-    icon: icon(["M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"]),
-  },
-  {
-    label: "Zaključavanje",
-    to: "/keyholders",
-    icon: icon([
-      "M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z",
-      "M7 11V7a5 5 0 0 1 10 0v4",
-    ]),
-  },
-  {
-    label: "Grafici",
-    to: "/charts",
-    icon: icon(["M18 20V10M12 20V4M6 20v-6"]),
-  },
-  {
-    label: "Godišnji",
-    to: "/annual-leave",
-    icon: icon([
-      "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
-    ]),
-  },
-  {
-    label: "Pomoć",
-    to: "/help",
-    icon: icon([
-      "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z",
-      "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01",
-    ]),
-  },
+const isTablesActive = computed(() => route.path.startsWith("/tables"));
+
+const morItems = [
+  { label: "MOR", to: "/tables/mor" },
+  { label: "MOR Zadruga", to: "/tables/mor/mor-cooperative" },
+  { label: "MOR PP", to: "/tables/mor/mor-pp" },
 ];
+
+const otherTableItems = [
+  { label: "Dodatno opterećenje", to: "/tables/additional-burden" },
+  { label: "Prekovremeni rad", to: "/tables/overtime" },
+  { label: "Pripravnost", to: "/tables/readiness" },
+  { label: "Prevoz", to: "/tables/transport" },
+];
+
+const authStore = useAuthStore();
+
+async function handleLogout() {
+  await authStore.logout();
+}
 </script>
 
 <style scoped>
@@ -126,7 +175,33 @@ const navItems = [
   height: 48px;
 }
 
+/* ── Icon wrappers ── */
+.nav-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.nav-icon--users {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-chevron {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+  transition: transform 0.2s;
+}
+
+.nav-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* ── Base nav item ── */
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -136,13 +211,14 @@ const navItems = [
   font-weight: 500;
   color: var(--color-accent-light-60);
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   transition:
     color 0.2s,
     background 0.2s;
   white-space: nowrap;
   text-decoration: none;
+  user-select: none;
 }
 
 .nav-item:hover {
@@ -153,17 +229,106 @@ const navItems = [
 .nav-item--active {
   color: var(--color-text-primary);
   background: var(--color-accent-20);
-  border: 1px solid var(--color-accent-25);
+  border-color: var(--color-accent-25);
 }
 
 .nav-item--add {
   color: var(--color-text-primary);
   background: var(--color-accent-20);
-  border: 1px solid var(--color-accent-light-30);
+  border-color: var(--color-accent-light-30);
   margin-right: 0.5rem;
 }
 
 .nav-item--add:hover {
   background: var(--color-accent-25);
+}
+
+.nav-item--dropdown {
+  cursor: default;
+}
+
+/* Push logout to the far right */
+.nav-item--logout {
+  margin-left: auto;
+  color: var(--color-accent-light-60);
+}
+
+.nav-item--logout:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+/* ── Dropdown panel ── */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-accent-25);
+  border-radius: 10px;
+  padding: 0.5rem;
+  z-index: 100;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--color-accent-15);
+}
+
+.dropdown-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.dropdown-group__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-light-50);
+  padding: 0.35rem 0.6rem 0.2rem;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--color-accent-20);
+  margin: 0.4rem 0;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-accent-light-60);
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.dropdown-item:hover {
+  color: var(--color-text-primary);
+  background: var(--color-accent-15);
+}
+
+.dropdown-item--active {
+  color: var(--color-text-primary);
+  background: var(--color-accent-20);
+}
+
+/* ── Transition ── */
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }
 </style>

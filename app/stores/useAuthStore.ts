@@ -1,29 +1,19 @@
-export interface AuthUser {
-  id: string;
-  username: string;
-  email: string;
-  role: "admin" | "user";
-  createdAt: string;
-}
-
-export interface RegisterPayload {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import type { AuthUser, RegisterPayload } from "~/types/auth";
 
 export const useAuthStore = defineStore("auth", () => {
-  // State
   const user = ref<AuthUser | null>(null);
   const isLoading = ref(false);
   const error = ref<string | null>(null);
 
-  // Getters
-  const isAuthenticated = computed(() => !!user.value);
+  // Replace localStorage with useCookie
+  const authCookie = useCookie<AuthUser | null>("auth_user", {
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+    sameSite: "strict",
+  });
+
+  const isAuthenticated = computed(() => !!user.value || !!authCookie.value);
   const isAdmin = computed(() => user.value?.role === "admin");
 
-  // Actions
   async function login(email: string, password: string) {
     isLoading.value = true;
     error.value = null;
@@ -33,9 +23,7 @@ export const useAuthStore = defineStore("auth", () => {
         { method: "POST", body: { email, password } },
       );
       user.value = res.data;
-      if (import.meta.client) {
-        localStorage.setItem("auth_user", JSON.stringify(res.data));
-      }
+      authCookie.value = res.data;
       return true;
     } catch (e: any) {
       error.value = e.data?.message || "Greška pri prijavi";
@@ -49,7 +37,6 @@ export const useAuthStore = defineStore("auth", () => {
     isLoading.value = true;
     error.value = null;
 
-    // Confirm password check happens here in the store
     if (payload.password !== payload.confirmPassword) {
       error.value = "Lozinke se ne poklapaju";
       isLoading.value = false;
@@ -61,7 +48,6 @@ export const useAuthStore = defineStore("auth", () => {
         "/api/auth/register",
         {
           method: "POST",
-          // We don't send confirmPassword to the server
           body: {
             username: payload.username,
             email: payload.email,
@@ -70,9 +56,7 @@ export const useAuthStore = defineStore("auth", () => {
         },
       );
       user.value = res.data;
-      if (import.meta.client) {
-        localStorage.setItem("auth_user", JSON.stringify(res.data));
-      }
+      authCookie.value = res.data; // ← replaces localStorage.setItem
       return true;
     } catch (e: any) {
       error.value = e.data?.message || "Greška pri registraciji";
@@ -85,18 +69,13 @@ export const useAuthStore = defineStore("auth", () => {
   async function logout() {
     await $fetch("/api/auth/logout", { method: "POST" });
     user.value = null;
-    if (import.meta.client) {
-      localStorage.removeItem("auth_user");
-    }
+    authCookie.value = null; // ← replaces localStorage.removeItem
     navigateTo("/auth/login");
   }
 
   function restoreSession() {
-    if (import.meta.client) {
-      const stored = localStorage.getItem("auth_user");
-      if (stored) {
-        user.value = JSON.parse(stored);
-      }
+    if (authCookie.value) {
+      user.value = authCookie.value; // works on server AND client now
     }
   }
 

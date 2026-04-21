@@ -1,6 +1,8 @@
 <template>
   <div style="height: 100%; overflow: hidden">
     <NuxtRouteAnnouncer />
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>

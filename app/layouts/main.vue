@@ -1,7 +1,7 @@
 <!-- layouts/main.vue -->
 <template>
   <div class="main-layout">
-    <TheHeader />
+    <AppHeader />
     <AppNavigation @add="isAddOpen = true" />
     <main class="main-content">
       <slot />

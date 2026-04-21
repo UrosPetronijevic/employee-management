@@ -37,28 +37,35 @@
             Zaboravljena lozinka?
           </NuxtLink>
         </div>
+
+        <!-- <p v-if="authStore.error" class="error-text">{{ authStore.error }}</p> -->
       </template>
     </AuthFormWrapper>
   </div>
 </template>
 
 <script setup lang="ts">
-import IconMail from "~/components/icons/IconMail.vue";
-import IconLock from "~/components/icons/IconLock.vue";
-import AppCheckbox from "~/components/ui/AuthCheckbox.vue";
-import AuthInput from "~/components/auth/AuthInput.vue";
-import AuthLeftPanel from "~/components/auth/AuthLeftPanel.vue";
-import AuthFormWrapper from "~/components/auth/AuthFormWrapper.vue";
+import IconMail from "@/components/icons/IconMail.vue";
+import IconLock from "@/components/icons/IconLock.vue";
+import AppCheckbox from "@/components/ui/AuthCheckbox.vue";
+import AuthInput from "@/components/auth/AuthInput.vue";
+import AuthLeftPanel from "@/components/auth/AuthLeftPanel.vue";
+import AuthFormWrapper from "@/components/auth/AuthFormWrapper.vue";
 
 definePageMeta({ layout: "auth" });
 
 const loading = ref(false);
 const form = reactive({ email: "", password: "", rememberMe: false });
 
+const authStore = useAuthStore();
+
 async function handleLogin() {
   loading.value = true;
   try {
-    // auth logic
+    const success = await authStore.login(form.email, form.password);
+    if (success) {
+      await navigateTo("/dashboard");
+    }
   } finally {
     loading.value = false;
   }

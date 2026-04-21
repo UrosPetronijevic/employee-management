@@ -1,4 +1,3 @@
-// server/api/employees/index.post.ts
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
